@@ -70,18 +70,22 @@ flint.hears('/getroomid', function(bot, trigger) {
 // get xray
 flint.hears('/getxray', function(bot, trigger) {
     var url = 'http://www.precisioncarenj.com/wp-content/uploads/2010/09/Lateral1.jpg';
-    bot.file(url);
+//    bot.file(url);
+    bot.say({text: "Here is your xray", file: url});
 });
 flint.hears('getxray', function(bot, trigger) {
     var url = 'http://www.precisioncarenj.com/wp-content/uploads/2010/09/Lateral1.jpg';
-    bot.file(url);
+//    bot.file(url);
+    bot.say({file: url});
+
 });
 
 
 // get mri
 flint.hears('/getmri', function(bot, trigger) {
     var url = 'http://svdrads.com/images/home/grid/MRI-head-zoom-38266824-3.jpg';
-    bot.file(url);
+//    bot.file(url);
+    bot.upload(url);
 });
 flint.hears('getmri', function(bot, trigger) {
     var url = 'http://svdrads.com/images/home/grid/MRI-head-zoom-38266824-3.jpg';
@@ -136,9 +140,32 @@ flint.hears('/getepic', function(bot, trigger) {
 // get SIP URI
 flint.hears('/geturi', function(bot, trigger) {
     console.log("/geturi command");
+    console.log("bot.myroom: ");
+    console.log(bot.myroom);
     bot.say(bot.myroom.sipAddress);
 });
 
 flint.hears('/flinthelp', function(bot, trigger, id) {
     bot.say(flint.showHelp());
+});
+
+// add a person or people to room by email
+flint.hears('/add', function(bot, trigger) {
+    var email = trigger.args;
+    if(email) bot.add(email);
+});
+
+// remove a person or people from room by email
+flint.hears('/remove', function(bot, trigger) {
+    var email = trigger.args;
+    if(email) bot.remove(email);
+});
+
+// implode room - remove everyone and then remove self
+flint.hears('/release', function(bot, trigger) {
+    bot.implode(function(err) {
+        if(err) {
+            console.log('error imploding room');
+        }
+    });
 });
