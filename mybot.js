@@ -10,7 +10,7 @@ var util = require('util');
 var app_url = process.env.APP_URL + "/flint";
 console.log("app_url: " + app_url);
 console.log("process.env.TOKEN_SPARK_BOT: " + process.env.TOKEN_SPARK_BOT);
-
+var token_spark = process.env.TOKEN_SPARK_BOT;
 
 // flint options
 var config = {
@@ -140,40 +140,16 @@ flint.hears('/getepic', function(bot, trigger) {
 // get SIP URI
 flint.hears('/geturi', function(bot, trigger) {
     console.log("this is the /geturi command");
-    console.log("trigger.roomId: " + trigger.roomId);
-    console.log("trigger.roomTitle: " + trigger.roomTitle);
-    console.log("trigger.roomType: " + trigger.roomType);
-    console.log("trigger.roomSipAddress: " + trigger.roomSipAddress);
-    console.log("trigger.room: " + trigger.room);
-    console.log("trigger.room.id: " + trigger.room.id);
+    console.log("calling getRoomDetails function now");
+    var room = JSON.parse(getRoomDetails(trigger.roomId, token_spark));
+    console.log("room: " + room);
+    bot.say(room.sipAddress);
+});
 
-//    console.log(util.inspect(bot.myroom, {showHidden: false, depth: null}));
-//    console.log("bot.myroom" + JSON.stringify(bot.myroom));
-    console.log("check");
-    console.log("trigger.room.id: " + trigger.room.id);
-    console.log("trigger.room.title: " + trigger.room.title);
-    console.log("trigger.room.sipAddress: " + trigger.room.sipAddress);
-    console.log("check2");
-/*    console.log("bot.myroom.title: " + bot.myroom.title);
-    console.log("bot.myroom.id: " + bot.myroom.id);
-    console.log("bot.myroom.roomId: " + bot.myroom.roomId);
-    console.log("bot.myroom.sipAddress: " + bot.myroom.sipAddress);
-    console.log("bot.myroom.sipUri: " + bot.myroom.sipUri);
-    console.log("bot.myroom.value: " + bot.myroom.value);
-    console.log("bot.myroom.text: " + bot.myroom.text);
-    console.log("bot.myroom.body: " + bot.myroom.body);
-    console.log("bot.myroom.details: " + bot.myroom.details);
-    console.log("bot.myroom.detail: " + bot.myroom.detail);
-    console.log("bot.myroom.type: " + bot.myroom.type);
-    console.log("bot.myroom.isLocked: " + bot.myroom.isLocked);
-    console.log("bot.myroom.lastActivity: " + bot.myroom.lastActivity);
-    console.log("bot.myroom.creatorId: " + bot.myroom.creatorId);
-    console.log("bot.myroom.created: " + bot.myroom.created);
-    console.log("bot.myroom.sipUri: " + bot.myroom.sipUri);
-    console.log("bot.myroom.address: " + bot.myroom.address);
-    console.log("bot.myroom.showSipAddress: " + bot.myroom.showSipAddress);
-    bot.say("Stringify: " + JSON.stringify(bot.myroom));
-*/
+// flint normalizes arguments to all lower case, so this does not work for getting room details.  Must hard code roomId
+flint.hears('/getroomdetails', function(bot, trigger) {
+    console.log("calling getRoomDetails function now");
+    bot.say(getRoomDetails(trigger.roomId, token_spark));
 });
 
 flint.hears('/flinthelp', function(bot, trigger, id) {
@@ -200,3 +176,28 @@ flint.hears('/release', function(bot, trigger) {
         }
     });
 });
+
+function getRoomDetails(roomId, tokenSpark) {
+    console.log("getRoomDetails(" + roomId + ", " + tokenSpark + ")");
+    console.log("Received room id: " + roomId);
+    request({
+            url: "https://api.ciscospark.com/v1/rooms/" + myRoomId,
+            method: "GET",
+            headers: {
+                "Authorization": "BEARER "+tokenSpark,
+                "Content-Type": "application/json"
+            }, //headers
+            qs: {
+                showSipAddress: "true"
+            } //qs
+        }, //request
+        function (error, response, body) {
+            if(error) {
+                console.log("Room detail retrieval error: " +  error);
+            } else {
+                console.log(body);
+                return body;
+            } //else
+        } //function
+    ); //request
+}; //function getRoomDetails
