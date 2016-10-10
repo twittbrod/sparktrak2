@@ -138,3 +138,7 @@ flint.hears('/geturi', function(bot, trigger) {
     console.log("/geturi command");
     bot.say(bot.myroom.sipAddress);
 });
+
+flint.hears('/flinthelp', function(bot, trigger, id) {
+    bot.say(flint.showHelp());
+});
