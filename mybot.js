@@ -138,7 +138,9 @@ flint.hears('/getepic', function(bot, trigger) {
 // get SIP URI
 flint.hears('/geturi', function(bot, trigger) {
     console.log("this is the /geturi command");
-    console.log("bot.myroom.title: " + bot.myroom.title);
+    console.log("bot.myroom" + JSON.stringify(bot.myroom));
+    console.log("check");
+/*    console.log("bot.myroom.title: " + bot.myroom.title);
     console.log("bot.myroom.id: " + bot.myroom.id);
     console.log("bot.myroom.roomId: " + bot.myroom.roomId);
     console.log("bot.myroom.sipAddress: " + bot.myroom.sipAddress);
@@ -156,8 +158,8 @@ flint.hears('/geturi', function(bot, trigger) {
     console.log("bot.myroom.sipUri: " + bot.myroom.sipUri);
     console.log("bot.myroom.address: " + bot.myroom.address);
     console.log("bot.myroom.showSipAddress: " + bot.myroom.showSipAddress);
-    console.log("bot.myroom" + bot.myroom);
     bot.say("Stringify: " + JSON.stringify(bot.myroom));
+*/
 });
 
 flint.hears('/flinthelp', function(bot, trigger, id) {
