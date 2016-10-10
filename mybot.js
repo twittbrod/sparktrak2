@@ -140,7 +140,10 @@ flint.hears('/getepic', function(bot, trigger) {
 // get SIP URI
 flint.hears('/geturi', function(bot, trigger) {
     console.log("this is the /geturi command");
-    console.log(util.inspect(bot.myroom, {showHidden: false, depth: null}));
+    console.log("trigger.room: " + trigger.room);
+    console.log("trigger.room.id: " + trigger.room.id);
+
+//    console.log(util.inspect(bot.myroom, {showHidden: false, depth: null}));
 //    console.log("bot.myroom" + JSON.stringify(bot.myroom));
     console.log("check");
     console.log("trigger.room.id: " + trigger.room.id);
