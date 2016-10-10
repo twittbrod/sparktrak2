@@ -157,7 +157,7 @@ flint.hears('/geturi', function(bot, trigger) {
     console.log("bot.myroom.address: " + bot.myroom.address);
     console.log("bot.myroom.showSipAddress: " + bot.myroom.showSipAddress);
     console.log("bot.myroom" + bot.myroom);
-    bot.say(+Stringify: " + JSON.stringify(bot.myroom));
+    bot.say("Stringify: " + JSON.stringify(bot.myroom));
 });
 
 flint.hears('/flinthelp', function(bot, trigger, id) {
