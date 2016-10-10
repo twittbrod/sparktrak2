@@ -8,6 +8,7 @@ app.use(bodyParser.json());
 var util = require('util');
 var request = require('request');
 
+require('should');
 
 var app_url = process.env.APP_URL + "/flint";
 console.log("app_url: " + app_url);
