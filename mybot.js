@@ -137,7 +137,7 @@ flint.hears('/getepic', function(bot, trigger) {
 
 // get SIP URI
 flint.hears('/geturi', function(bot, trigger) {
-    console.log("/geturi command");
+    console.log("this is the /geturi command");
     console.log("bot.myroom.title: " + bot.myroom.title);
     console.log("bot.myroom.id: " + bot.myroom.id);
     console.log("bot.myroom.roomId: " + bot.myroom.roomId);
