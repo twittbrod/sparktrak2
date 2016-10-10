@@ -5,6 +5,8 @@ var bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.json());
 
+var util = require('util');
+
 var app_url = process.env.APP_URL + "/flint";
 console.log("app_url: " + app_url);
 console.log("process.env.TOKEN_SPARK_BOT: " + process.env.TOKEN_SPARK_BOT);
@@ -138,7 +140,8 @@ flint.hears('/getepic', function(bot, trigger) {
 // get SIP URI
 flint.hears('/geturi', function(bot, trigger) {
     console.log("this is the /geturi command");
-    console.log("bot.myroom" + JSON.stringify(bot.myroom));
+    console.log(util.inspect(bot.myroom, {showHidden: false, depth: null}))
+//    console.log("bot.myroom" + JSON.stringify(bot.myroom));
     console.log("check");
 /*    console.log("bot.myroom.title: " + bot.myroom.title);
     console.log("bot.myroom.id: " + bot.myroom.id);
