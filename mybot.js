@@ -70,12 +70,11 @@ flint.hears('/getroomid', function(bot, trigger) {
 // get xray
 flint.hears('/getxray', function(bot, trigger) {
     var url = 'http://www.precisioncarenj.com/wp-content/uploads/2010/09/Lateral1.jpg';
-//    bot.file(url);
-    bot.say({text: "Here is your xray", file: url});
+    bot.say({file: url});
+//    bot.say({text: "Here is your xray", file: url});
 });
 flint.hears('getxray', function(bot, trigger) {
     var url = 'http://www.precisioncarenj.com/wp-content/uploads/2010/09/Lateral1.jpg';
-//    bot.file(url);
     bot.say({file: url});
 
 });
@@ -84,12 +83,11 @@ flint.hears('getxray', function(bot, trigger) {
 // get mri
 flint.hears('/getmri', function(bot, trigger) {
     var url = 'http://svdrads.com/images/home/grid/MRI-head-zoom-38266824-3.jpg';
-//    bot.file(url);
-    bot.upload(url);
+    bot.say({file: url});
 });
 flint.hears('getmri', function(bot, trigger) {
     var url = 'http://svdrads.com/images/home/grid/MRI-head-zoom-38266824-3.jpg';
-    bot.file(url);
+    bot.say({file: url});
 });
 
 
@@ -97,13 +95,13 @@ flint.hears('getmri', function(bot, trigger) {
 // get patient record
 flint.hears('/gethistory', function(bot, trigger) {
     var url = 'https://www.med.unc.edu/medclerk/files/UMNwriteup.pdf';
-    bot.file(url);
+    bot.say({file: url});
 });
 
 // get patient record
 flint.hears('/getlastvisit', function(bot, trigger) {
     var url = 'https://www.litholink.com/downloads/CKD%20Patient1%20Example%20with%20Patient%20Handout.pdf';
-    bot.file(url);
+    bot.say({file: url});
 });
 
 // get map
@@ -140,9 +138,26 @@ flint.hears('/getepic', function(bot, trigger) {
 // get SIP URI
 flint.hears('/geturi', function(bot, trigger) {
     console.log("/geturi command");
-    console.log("bot.myroom: ");
-    console.log(bot.myroom);
-    bot.say(bot.myroom.sipAddress);
+    console.log("bot.myroom.title: " + bot.myroom.title);
+    console.log("bot.myroom.id: " + bot.myroom.id);
+    console.log("bot.myroom.roomId: " + bot.myroom.roomId);
+    console.log("bot.myroom.sipAddress: " + bot.myroom.sipAddress);
+    console.log("bot.myroom.sipUri: " + bot.myroom.sipUri);
+    console.log("bot.myroom.value: " + bot.myroom.value);
+    console.log("bot.myroom.text: " + bot.myroom.text);
+    console.log("bot.myroom.body: " + bot.myroom.body);
+    console.log("bot.myroom.details: " + bot.myroom.details);
+    console.log("bot.myroom.detail: " + bot.myroom.detail);
+    console.log("bot.myroom.type: " + bot.myroom.type);
+    console.log("bot.myroom.isLocked: " + bot.myroom.isLocked);
+    console.log("bot.myroom.lastActivity: " + bot.myroom.lastActivity);
+    console.log("bot.myroom.creatorId: " + bot.myroom.creatorId);
+    console.log("bot.myroom.created: " + bot.myroom.created);
+    console.log("bot.myroom.sipUri: " + bot.myroom.sipUri);
+    console.log("bot.myroom.address: " + bot.myroom.address);
+    console.log("bot.myroom.showSipAddress: " + bot.myroom.showSipAddress);
+    console.log("bot.myroom" + bot.myroom);
+    bot.say(+Stringify: " + JSON.stringify(bot.myroom));
 });
 
 flint.hears('/flinthelp', function(bot, trigger, id) {
