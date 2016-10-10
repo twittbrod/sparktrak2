@@ -43,7 +43,7 @@ echo
 #echo
 
 
-cp sample-spark-trak.json deploy-sparktrak2.json
+cp sample-sparktrak2.json deploy-sparktrak2.json
 #sed -i "" -e "s/DOCKERUSER/$docker_username/g" $docker_username-demoapp.json
 sed -i "" -e "s/ENV_TOKEN_SPARK_BOT/$spark_token/g" deploy-spark-trak.json
 #sed -i "" -e "s/ENV_TOKEN_TROPO_SMSEMER_TXT/$token_tropo_smsemer_txt/g" deploy-spark-trak.json

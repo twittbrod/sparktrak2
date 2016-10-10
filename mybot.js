@@ -5,6 +5,10 @@ var bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.json());
 
+console.log("process.env.APP_URL: " + process.env.APP_URL);
+console.log("process.env.TOKEN_SPARK_BOT: " + process.env.TOKEN_SPARK_BOT);
+
+
 // flint options
 var config = {
     webhookUrl: process.env.APP_URL,

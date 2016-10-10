@@ -5,4 +5,4 @@ drone_secrets.yml
 .idea/
 drone-secrets.yml
 env.list
-deploy-spark-trak.json
+deploy-sparktrak2.json
