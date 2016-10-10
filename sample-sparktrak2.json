@@ -1,0 +1,33 @@
+{
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "twittbrod/sparktrak2:latest",
+      "forcePullImage": true,
+      "network": "BRIDGE",
+      "portMappings": [{
+        "containerPort": 8080,
+        "hostPort": 0
+      }]
+    },
+    "forcePullImage": true
+  },
+  "healthChecks": [{
+    "protocol": "TCP",
+    "portIndex": 0
+  }],
+  "id": "/ENV_FOLDER_NAME/ENV_DEPLOYMENT_NAME/sparktrak2bot",
+  "instances": 1,
+  "cpus": 0.1,
+  "mem": 16,
+  "env": {
+    "TOKEN_SPARK_BOT": "ENV_TOKEN_SPARK_BOT",
+//    "TOKEN_TROPO_SMSEMER_TXT": "ENV_TOKEN_TROPO_SMSEMER_TXT",
+//    "TOKEN_TROPO_CALLSPARK_CALL": "ENV_TOKEN_TROPO_CALLSPARK_CALL",
+//    "TOKEN_TROPO_EMERCONF_CALL": "ENV_TOKEN_TROPO_EMERCONF_CALL",
+//    "TOKEN_TROPO_EMERCONF_TXT": "ENV_TOKEN_TROPO_EMERCONF_TXT",
+    "MANTL_CONTROL": "ENV_MANTL_CONTROL",
+    "APP_URL": "http://ENV_FOLDER_NAME-ENV_DEPLOYMENT_NAME-sparktrak2bot.ENV_APP_DOMAIN",
+//    "BOT_EMAIL": "ENV_BOT_EMAIL"
+  }
+}

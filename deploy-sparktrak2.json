@@ -1,0 +1,33 @@
+{
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "twittbrod/sparktrak2:latest",
+      "forcePullImage": true,
+      "network": "BRIDGE",
+      "portMappings": [{
+        "containerPort": 8080,
+        "hostPort": 0
+      }]
+    },
+    "forcePullImage": true
+  },
+  "healthChecks": [{
+    "protocol": "TCP",
+    "portIndex": 0
+  }],
+  "id": "/imapex/sparktrak2/sparktrak2bot",
+  "instances": 1,
+  "cpus": 0.1,
+  "mem": 16,
+  "env": {
+    "TOKEN_SPARK_BOT": "NjI1YzU5ZGItMDk2NC00NzM1LWFiZGItZjFiYjIzMzYxZDQ4ZjllZDU5YjgtMzlj",
+//    "TOKEN_TROPO_SMSEMER_TXT": "556c58585157504a7a4948686b656c5163725052516c466456796f6c484f55704c5a4979576259666850774c",
+//    "TOKEN_TROPO_CALLSPARK_CALL": "58457a4f4a58704e687873666f41524e6b747778796576767845726755504d71586143414e76695347625167",
+//    "TOKEN_TROPO_EMERCONF_CALL": "73497256496755516b4b7142534d5169496a51525378686e615941415768704a45574175734f494c6c745243",
+//    "TOKEN_TROPO_EMERCONF_TXT": "646b586b77516270657a645a776a6b52464147786865466279504467717a72656c78504f584b426d544f7165",
+    "MANTL_CONTROL": "control.green.browndogtech.com",
+    "APP_URL": "http://imapex-sparktrak2-sparktrak2bot.green.browndogtech.com",
+//    "BOT_EMAIL": "twittbrod@gmail.com"
+  }
+}
