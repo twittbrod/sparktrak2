@@ -6,6 +6,9 @@ var app = express();
 app.use(bodyParser.json());
 
 var util = require('util');
+var request = require('request');
+var require('should');
+
 
 var app_url = process.env.APP_URL + "/flint";
 console.log("app_url: " + app_url);
@@ -180,11 +183,13 @@ flint.hears('/release', function(bot, trigger) {
 function getRoomDetails(roomId, tokenSpark) {
     console.log("getRoomDetails(" + roomId + ", " + tokenSpark + ")");
     console.log("Received room id: " + roomId);
+    var myUrl = "https://api.ciscospark.com/v1/rooms/" + myRoomId;
+    console.log("myUrl: " + myUrl);
     request({
-            url: "https://api.ciscospark.com/v1/rooms/" + myRoomId,
+            url: myUrl,
             method: "GET",
             headers: {
-                "Authorization": "BEARER "+tokenSpark,
+                "Authorization": "BEARER "+ tokenSpark,
                 "Content-Type": "application/json"
             }, //headers
             qs: {
@@ -195,6 +200,11 @@ function getRoomDetails(roomId, tokenSpark) {
             if(error) {
                 console.log("Room detail retrieval error: " +  error);
             } else {
+                console.log("error: ");
+                console.log(error);
+                console.log("response: ");
+                console.log(response);
+                console.log("body: ");
                 console.log(body);
                 return body;
             } //else
