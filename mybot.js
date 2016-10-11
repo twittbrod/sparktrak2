@@ -183,10 +183,10 @@ flint.hears('/release', function(bot, trigger) {
 function getRoomDetails(roomId, tokenSpark) {
     console.log("getRoomDetails(" + roomId + ", " + tokenSpark + ")");
     console.log("Received room id: " + roomId);
-    var myUrl = "https://api.ciscospark.com/v1/rooms/" + myRoomId;
-    console.log("myUrl: " + myUrl);
+    var apiUrl = "https://api.ciscospark.com/v1/rooms/" + roomId;
+    console.log("apiUrl: " + apiUrl);
     request({
-            url: myUrl,
+            url: apiUrl,
             method: "GET",
             headers: {
                 "Authorization": "BEARER "+ tokenSpark,
