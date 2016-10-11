@@ -211,11 +211,12 @@ flint.hears('/whoami', function(bot, trigger) {
 
 flint.hears('/cleanup', function(bot, trigger) {
     // get message list
+    console.log("cleanup");
     request({
             url: "https://api.ciscospark.com/v1/messages",
             method: "GET",
             headers: {
-                "Authorization": "Bearer " + tokenSpark,
+                "Authorization": "Bearer " + token_Spark,
                 "Content-Type": "application/json"
             },
             qs: {
@@ -244,7 +245,7 @@ flint.hears('/cleanup', function(bot, trigger) {
                                 url: "https://api.ciscospark.com/v1/messages/" + messageList.items[i].id,
                                 method: "DELETE",
                                 headers: {
-                                    "Authorization": "Bearer " + tokenSpark,
+                                    "Authorization": "Bearer " + token_Spark,
                                     "Content-Type": "application/json"
                                 },  //headers
                             },  //request parameters - delete message
