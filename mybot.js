@@ -189,6 +189,11 @@ flint.hears('/release', function(bot, trigger) {
 // say bot properties
 flint.hears('/whoami', function(bot, trigger) {
 //    bot.say('I am ' + bot.myperson.displayName + ' in room ' + bot.myroom.title + '.  My email is ' + bot.myemail + '.');
+    console.log("trigger.personDisplayName: " + trigger.personDisplayName);
+    console.log("trigger.roomTitle: " + trigger.roomTitle);
+    console.log("flint.email: " + flint.email);
+    console.log("flint.person.displayName: " + flint.person.displayName);
+
     bot.say('Hi ' + trigger.personDisplayName + '. I am ' + flint.person.displayName + ' in room ' + trigger.roomTitle + '.  My email is ' + flint.email + '. It is a pleasure to meet you.');
 });
 
