@@ -265,6 +265,47 @@ flint.hears('/cleanup', function(bot, trigger) {
 });
 
 
+// documenting the bot - general
+flint.hears('/help', function(bot, trigger) {
+    bot.say('I am the demo bot.  I am a living bot that will grow to satisfy many use cases.  If you have an idea and wonder what I can, ask.  Here are my commands:');
+    bot.say('  - /help - you should have this one figured out already');
+    bot.say('  - /helphealth - show the command set for healthcare demos');
+    bot.say('  - /helpmanufacturing - coming soon');
+    bot.say('  - /helppharma - coming soon');
+    bot.say('  - /helpinsurance - coming soon');
+    bot.say('  - /echo <text> - repeat the <text> portion');
+    bot.say('  - /add <email> - add the user with <email> to this room');
+    bot.say('  - /remove <email> - remove the user with <email> from this room (if permissions allow)');
+    bot.say('  - /release - remove all users from the room, including the bot, and implode the room');
+    bot.say('  - /cleanup - remove any content added to the room by the bot itself');
+    bot.say("  - /getroomid - return the Spark room ID");
+    bot.say("  - /geturi - return the Spark room SIP URI for this room");
+    bot.say("  - /getroomdetails - return the Spark room details of a hard coded room ID");
+    bot.say('  - /whoami - I will give my name, rank, and serial number -- err name, room name, and bot email');
+});
+
+
+// documenting the bot - healthcare
+flint.hears('/helphealth', function(bot, trigger) {
+    bot.say('I can be a healthcare bot.  Here are my healthcare commands:');
+//    bot.say('  - /911 - create a new Spark room, add emergency response folks, and start a meeting in that room');
+//    bot.say('  - /9111 - add emergency response folks to this room ');
+//    bot.say('  - /911txt - add emergency response folks to this room and send SMS notification message');
+//    bot.say('  - /911tro - blast dial all emergency response folks, add to Tropo conference, and send SMS to join message');
+    bot.say('  - /gethistory - push a PDF of patient history into the discussion');
+    bot.say('  - /getlastvisit - push a PDF of patient last visit details into the discussion');
+    bot.say('  - /getmri - push patient MRI into discussion');
+    bot.say('  - /getxray - push patient X-ray into discussion');
+    bot.say('  - /emr - present a generic EMR URL to the patient ');
+    bot.say('  - /epic - present the Epic EMR URL to the patient');
+    bot.say('  - /nextgen - present the NextGen EMR URL to the patient ');
+    bot.say('  - /map - map the address of the patient');
+    bot.say('  - /release - release room, removing all participants and then deconstructing room');
+    bot.say('  - /cleanup - remove any content added to the room by the bot itself');
+
+});
+
+
 function getRoomDetails(roomId, tokenSpark, callback) {
     console.log("getRoomDetails(" + roomId + ", " + tokenSpark + ")");
     console.log("Received room id: " + roomId);
