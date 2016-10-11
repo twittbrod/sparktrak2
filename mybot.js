@@ -144,14 +144,20 @@ flint.hears('/getepic', function(bot, trigger) {
 flint.hears('/geturi', function(bot, trigger) {
     console.log("this is the /geturi command");
     console.log("calling getRoomDetails function now");
-    var room = JSON.parse(getRoomDetails(trigger.roomId, token_spark));
+    var roomObj = getRoomDetails(trigger.roomId, token_spark);
+    console.log("roomObj: ");
+    console.log(roomObj);
+    var room = JSON.parse(roomObj);
     console.log("room: " + room);
     bot.say(room.sipAddress);
 });
 
 flint.hears('/getroomdetails', function(bot, trigger) {
     console.log("calling getRoomDetails function now");
-    bot.say(getRoomDetails(trigger.roomId, token_spark));
+    var roomObj = getRoomDetails(trigger.roomId, token_spark);
+    console.log("roomObj: ");
+    console.log(roomObj);
+    bot.say(roomObj);
 });
 
 flint.hears('/getroomdetails2', function(bot, trigger) {
@@ -228,8 +234,6 @@ function getRoomDetails(roomId, tokenSpark) {
             if(error) {
                 console.log("Room detail retrieval error: " +  error);
             } else {
-                console.log("error: ");
-                console.log(error);
                 console.log("body: ");
                 console.log(body);
                 return body;
