@@ -337,13 +337,64 @@ flint.hears('/loadlist', function(bot, trigger) {
 }); //flint.hears
 */
 
+/*
+flint.hears('/addcompliance', function(bot, trigger) {
+    // get regex as string
 
-flint.hears('/compliance', function(bot, trigger) {
+    // convert string to regex
+
+    // store regex
+
+});
+
+// all messages that do not match a command
+//  #perform compliance check#
+// (change * below to #)
+flint.hears(/.$/, function(bot, trigger) {
+    // retrieve regex
+
+    // comapare regex for all parts of message
+    var compliant = true;
+    for (var i=0; i < trigger.args.length; i++) {
+        check = trigger.args[i].match(myregex);
+        if check.length > 0 {
+            trigger.args[i] = "XXXXXXXXXXX";
+            compliant = false;
+        }
+    }
+
+    // delete/mask if match
+    if compliant == false {
+        bot.say('You can't say that!);
+        request({
+                url: "https://api.ciscospark.com/v1/messages/" + messageList.items[i].id,
+                method: "DELETE",
+                headers: {
+                    "Authorization": "Bearer " + token_spark,
+                    "Content-Type": "application/json"
+                },  //headers
+            },  //request parameters - delete message
+            function (error, response, body) {
+                if(error) {
+                    console.log("delete error: " + error);
+                } else {
+                    console.log("delete body: " + body);
+                }
+            } //function - request delete message
+        ); //request - delete message
+        bot.say(trigger.personDisplayName + ": " + trigger.args);
+    }
+});
+*/
+
+
+
+flint.hears('/compliancetest', function(bot, trigger) {
     // get regex as string
     // generic 16 digit numberic code: [0-9]{13}
     console.log("/compliance");
     bot.say("test starting");
-    var str1 = "[0-9]{13}";
+    var str1 = "[0-9]{16}";
     console.log("str1: " + str1);
 
     // convert string to regex
