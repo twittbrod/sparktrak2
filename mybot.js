@@ -341,25 +341,31 @@ flint.hears('/loadlist', function(bot, trigger) {
 flint.hears('/compliance', function(bot, trigger) {
     // get regex as string
     // generic 16 digit numberic code: [0-9]{13}
+    console.log("/compliance");
+    bot.say("test starting");
     var str1 = "[0-9]{13}";
+    console.log("str1: " + str1);
 
     // convert string to regex
-    var regex = new RegExp(str);
+    var myregex = new RegExp(str);
+    console.log("myregex : " + myregex);
 
     // compare regex
     var str2 = "1234567890123456";
-    var str3 = "123456789012345";
-    var str4 = "123456789o123456";
-    console.log("regex : " + regex);
-    var res = str2.match(regex);
+    var res = str2.match(myregex);
     console.log("str2: " + str2);
     console.log("res: " + res);
-    res = str3.match(regex);
+
+    var str3 = "123456789012345";
+    res = str3.match(myregex);
     console.log("str3: " + str3);
     console.log("res: " + res);
-    res = str4.match(regex);
+
+    var str4 = "123456789o123456";
+    res = str4.match(myregex);
     console.log("str4: " + str4);
     console.log("res: " + res);
+
     bot.say("test done");
 
     // delete/mask if match
