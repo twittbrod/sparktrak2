@@ -143,18 +143,17 @@ flint.hears('/getepic', function(bot, trigger) {
 // get SIP URI
 flint.hears('/geturi', function(bot, trigger) {
     console.log("this is the /geturi command");
-    console.log("calling getRoomDetails function now");
-    var roomObj = getRoomDetails(trigger.roomId, token_spark);
-    console.log("roomObj: ");
-    console.log(roomObj);
-    var room = JSON.parse(roomObj);
-    console.log("room: " + room);
-    bot.say(room.sipAddress);
+    getRoomDetails(trigger.roomId, token_spark, function (error, roomObj) {
+        console.log("roomObj: ");
+        console.log(roomObj);
+        var room = JSON.parse(roomObj);
+        console.log("room: " + room);
+        bot.say(room.sipAddress);
+    });
 });
 
 flint.hears('/getroomdetails', function(bot, trigger) {
-    console.log("calling getRoomDetails function now");
-    getRoomDetails(trigger.roomId, token_spark, function(roomObj) {
+    getRoomDetails(trigger.roomId, token_spark, function(error, roomObj) {
         console.log("roomObj: ");
         console.log(roomObj);
         bot.say(roomObj);
@@ -238,8 +237,8 @@ function getRoomDetails(roomId, tokenSpark, callback) {
                 console.log("body: ");
                 console.log(body);
 //                return body;
-                callback(body);
             } //else
+            callback(error, body);
         } //function
     ); //request
 }; //function getRoomDetails
