@@ -347,7 +347,7 @@ flint.hears('/compliance', function(bot, trigger) {
     console.log("str1: " + str1);
 
     // convert string to regex
-    var myregex = new RegExp(str);
+    var myregex = new RegExp(str1);
     console.log("myregex : " + myregex);
 
     // compare regex
