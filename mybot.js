@@ -154,10 +154,11 @@ flint.hears('/geturi', function(bot, trigger) {
 
 flint.hears('/getroomdetails', function(bot, trigger) {
     console.log("calling getRoomDetails function now");
-    var roomObj = getRoomDetails(trigger.roomId, token_spark);
-    console.log("roomObj: ");
-    console.log(roomObj);
-    bot.say(roomObj);
+    getRoomDetails(trigger.roomId, token_spark, function(roomObj) {
+        console.log("roomObj: ");
+        console.log(roomObj);
+        bot.say(roomObj);
+    });
 });
 
 flint.hears('/getroomdetails2', function(bot, trigger) {
@@ -214,7 +215,7 @@ flint.hears('/release', function(bot, trigger) {
     });
 });
 
-function getRoomDetails(roomId, tokenSpark) {
+function getRoomDetails(roomId, tokenSpark, callback) {
     console.log("getRoomDetails(" + roomId + ", " + tokenSpark + ")");
     console.log("Received room id: " + roomId);
     var apiUrl = "https://api.ciscospark.com/v1/rooms/" + roomId;
@@ -236,7 +237,8 @@ function getRoomDetails(roomId, tokenSpark) {
             } else {
                 console.log("body: ");
                 console.log(body);
-                return body;
+//                return body;
+                callback(body);
             } //else
         } //function
     ); //request
