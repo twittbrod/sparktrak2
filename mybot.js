@@ -149,11 +149,37 @@ flint.hears('/geturi', function(bot, trigger) {
     bot.say(room.sipAddress);
 });
 
-// flint normalizes arguments to all lower case, so this does not work for getting room details.  Must hard code roomId
 flint.hears('/getroomdetails', function(bot, trigger) {
     console.log("calling getRoomDetails function now");
     bot.say(getRoomDetails(trigger.roomId, token_spark));
 });
+
+flint.hears('/getroomdetails2', function(bot, trigger) {
+    var myRoomId = trigger.roomId;
+    console.log("Received room id: " + myRoomId);
+    request({
+//        url: "https://api.ciscospark.com/v1/rooms/" + trigger.args,
+            url: "https://api.ciscospark.com/v1/rooms/" + myRoomId,
+            method: "GET",
+            headers: {
+                "Authorization": "BEARER "+token_spark,
+                "Content-Type": "application/json"
+            },
+            qs: {
+                showSipAddress: "true"
+            }
+        },
+        function (error, response, body) {
+            if(error) {
+                console.log("Room creation error: " +  error);
+            } else {
+                console.log(body);
+                bot.say(body);
+            }
+        } //function
+    ); //request
+});
+
 
 flint.hears('/flinthelp', function(bot, trigger, id) {
     bot.say(flint.showHelp());
