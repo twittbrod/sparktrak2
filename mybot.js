@@ -156,24 +156,26 @@ flint.hears('/getroomdetails', function(bot, trigger) {
 
 flint.hears('/getroomdetails2', function(bot, trigger) {
     var myRoomId = trigger.roomId;
-    console.log("Received room id: " + myRoomId);
+    console.log("getroomdetails2: Received room id: " + myRoomId);
+    var apiUrl = "https://api.ciscospark.com/v1/rooms/" + myRoomId;
+    console.log("url: " + apiUrl);
     request({
 //        url: "https://api.ciscospark.com/v1/rooms/" + trigger.args,
-            url: "https://api.ciscospark.com/v1/rooms/" + myRoomId,
             method: "GET",
-            headers: {
-                "Authorization": "BEARER "+token_spark,
-                "Content-Type": "application/json"
-            },
+            url: apiUrl,
             qs: {
                 showSipAddress: "true"
+            },
+            headers: {
+                "Authorization": "Bearer " + token_spark,
+                "Content-Type": "application/json"
             }
         },
         function (error, response, body) {
             if(error) {
                 console.log("Room creation error: " +  error);
             } else {
-                console.log(body);
+                console.log("body: " + body);
                 bot.say(body);
             }
         } //function
@@ -215,7 +217,7 @@ function getRoomDetails(roomId, tokenSpark) {
             url: apiUrl,
             method: "GET",
             headers: {
-                "Authorization": "BEARER "+ tokenSpark,
+                "Authorization": "Bearer " + tokenSpark,
                 "Content-Type": "application/json"
             }, //headers
             qs: {
@@ -228,8 +230,6 @@ function getRoomDetails(roomId, tokenSpark) {
             } else {
                 console.log("error: ");
                 console.log(error);
-                console.log("response: ");
-                console.log(response);
                 console.log("body: ");
                 console.log(body);
                 return body;
