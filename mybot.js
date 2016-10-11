@@ -215,7 +215,7 @@ flint.hears('/cleanup', function(bot, trigger) {
             url: "https://api.ciscospark.com/v1/messages",
             method: "GET",
             headers: {
-                "Authorization": "Bearer " + token_Spark,
+                "Authorization": "Bearer " + token_spark,
                 "Content-Type": "application/json"
             },
             qs: {
@@ -244,7 +244,7 @@ flint.hears('/cleanup', function(bot, trigger) {
                                 url: "https://api.ciscospark.com/v1/messages/" + messageList.items[i].id,
                                 method: "DELETE",
                                 headers: {
-                                    "Authorization": "Bearer " + token_Spark,
+                                    "Authorization": "Bearer " + token_spark,
                                     "Content-Type": "application/json"
                                 },  //headers
                             },  //request parameters - delete message
