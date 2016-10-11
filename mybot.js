@@ -211,7 +211,6 @@ flint.hears('/whoami', function(bot, trigger) {
 
 flint.hears('/cleanup', function(bot, trigger) {
     // get message list
-    console.log("cleanup");
     request({
             url: "https://api.ciscospark.com/v1/messages",
             method: "GET",
