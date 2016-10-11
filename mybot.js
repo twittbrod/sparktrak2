@@ -51,6 +51,7 @@ var server = app.listen(config.port, function () {
     flint.debug('Flint listening on port %s', config.port);
 });
 
+
 // gracefully shutdown (ctrl-c)
 process.on('SIGINT', function() {
     flint.debug('stoppping...');
@@ -60,6 +61,7 @@ process.on('SIGINT', function() {
     });
 });
 
+
 // echo test
 flint.hears('/echo', function(bot, trigger) {
     console.log("echo command");
@@ -67,10 +69,12 @@ flint.hears('/echo', function(bot, trigger) {
     bot.say(trigger.args.join(' '));
 });
 
+
 flint.hears('/getroomid', function(bot, trigger) {
     console.log("/getroomid");
-    bot.say(bot.myroom.id);
+    bot.say(trigger.roomId);
 });
+
 
 // get xray
 flint.hears('/getxray', function(bot, trigger) {
@@ -96,12 +100,12 @@ flint.hears('getmri', function(bot, trigger) {
 });
 
 
-
 // get patient record
 flint.hears('/gethistory', function(bot, trigger) {
     var url = 'https://www.med.unc.edu/medclerk/files/UMNwriteup.pdf';
     bot.say({file: url});
 });
+
 
 // get patient record
 flint.hears('/getlastvisit', function(bot, trigger) {
@@ -109,36 +113,41 @@ flint.hears('/getlastvisit', function(bot, trigger) {
     bot.say({file: url});
 });
 
+
 // get map
 flint.hears('/map', function(bot, trigger) {
     bot.say('https://www.google.com/maps/place/12900+Park+Plaza+Dr,+Cerritos,+CA+90703/@33.8673616,-118.0592793,17z/data=!3m1!4b1!4m2!3m1!1s0x80dd2c57cbc9e363:0x25a07604cf1df1bb');
 });
 
+
 // get EMR record
 flint.hears('/nextgen', function(bot, trigger) {
     bot.say('https://nextgen.com/Events/1344?c=nextgen');
-    bot.say('https://www.google.com/?gws_rd=ssl#q=Patient:' + bot.myroom.title);
+    bot.say('https://www.google.com/?gws_rd=ssl#q=Patient:' + trigger.roomTitle);
 });
 flint.hears('/getnextgen', function(bot, trigger) {
     bot.say('https://nextgen.com/Events/1344?c=nextgen');
-    bot.say('https://www.google.com/?gws_rd=ssl#q=Patient:' + bot.myroom.title);
+    bot.say('https://www.google.com/?gws_rd=ssl#q=Patient:' + trigger.roomTitle);
 });
 
+
 flint.hears('/emr', function(bot, trigger) {
-    bot.say('https://www.google.com/?gws_rd=ssl#q=Patient:' + bot.myroom.title);
+    bot.say('https://www.google.com/?gws_rd=ssl#q=Patient:' + trigger.roomTitle);
 });
 flint.hears('/getemr', function(bot, trigger) {
-    bot.say('https://www.google.com/?gws_rd=ssl#q=Patient:' + bot.myroom.title);
+    bot.say('https://www.google.com/?gws_rd=ssl#q=Patient:' + trigger.roomTitle);
 });
+
 
 flint.hears('/epic', function(bot, trigger) {
     bot.say('http://www.epic.com/Epic/Post/1146');
-    bot.say('https://www.google.com/?gws_rd=ssl#q=Patient:' + bot.myroom.title);
+    bot.say('https://www.google.com/?gws_rd=ssl#q=Patient:' + trigger.roomTitle);
 });
 flint.hears('/getepic', function(bot, trigger) {
     bot.say('http://www.epic.com/Epic/Post/1146');
-    bot.say('https://www.google.com/?gws_rd=ssl#q=Patient:' + bot.myroom.title);
+    bot.say('https://www.google.com/?gws_rd=ssl#q=Patient:' + trigger.roomTitle);
 });
+
 
 // get SIP URI
 flint.hears('/geturi', function(bot, trigger) {
@@ -151,6 +160,7 @@ flint.hears('/geturi', function(bot, trigger) {
         bot.say(room.sipAddress);
     });
 });
+
 
 flint.hears('/getroomdetails', function(bot, trigger) {
     getRoomDetails(trigger.roomId, token_spark, function(error, roomObj) {
@@ -165,20 +175,26 @@ flint.hears('/flinthelp', function(bot, trigger, id) {
     bot.say(flint.showHelp());
 });
 
+
 // add a person or people to room by email
 flint.hears('/add', function(bot, trigger) {
     var email = trigger.args;
+    console.log("email: " + email);
     if(email) bot.add(email);
 });
+
 
 // remove a person or people from room by email
 flint.hears('/remove', function(bot, trigger) {
     var email = trigger.args;
+    console.log("email: " + email);
     if(email) bot.remove(email);
 });
 
+
 // implode room - remove everyone and then remove self
 flint.hears('/release', function(bot, trigger) {
+//    bot.implode();
     bot.implode(function(err) {
         if(err) {
             console.log('error imploding room');
@@ -186,16 +202,68 @@ flint.hears('/release', function(bot, trigger) {
     });
 });
 
+
 // say bot properties
 flint.hears('/whoami', function(bot, trigger) {
-//    bot.say('I am ' + bot.myperson.displayName + ' in room ' + bot.myroom.title + '.  My email is ' + bot.myemail + '.');
-    console.log("trigger.personDisplayName: " + trigger.personDisplayName);
-    console.log("trigger.roomTitle: " + trigger.roomTitle);
-    console.log("flint.email: " + flint.email);
-    console.log("flint.person.displayName: " + flint.person.displayName);
-
     bot.say('Hi ' + trigger.personDisplayName + '. I am ' + flint.person.displayName + ' in room ' + trigger.roomTitle + '.  My email is ' + flint.email + '. It is a pleasure to meet you.');
 });
+
+
+flint.hears('/cleanup', function(bot, trigger) {
+    // get message list
+    request({
+            url: "https://api.ciscospark.com/v1/messages",
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + tokenSpark,
+                "Content-Type": "application/json"
+            },
+            qs: {
+                roomId: trigger.roomId,
+                max: 500,
+            }
+        },  //request parameters - add bot to room
+        function (error, response, body) {
+            if (error) {
+                console.log("error: " + error);
+            } else {
+                console.log("body: " + body);
+                // convert json to array
+                var messageList = JSON.parse(body);
+                var numMessages = messageList.items.length;
+                console.log("Number of messages in room: " + numMessages);
+//                console.log('typeof messageList.items[0].files: ' + typeof messageList.items[0].files);
+
+                //parse array of messages
+                for(var i = 0; i < numMessages; i++) {
+                    // delete any message where files is not null and email is bot email
+                    if ((typeof messageList.items[i].files != "undefined") && (messageList.items[i].personEmail == flint.email)) {
+                        console.log("Delete message[" + i + "]: " + messageList.items[i].id);
+                        console.log("   from " + messageList.items[i].personEmail + " at " + messageList.items[i].created);
+                        request({
+                                url: "https://api.ciscospark.com/v1/messages/" + messageList.items[i].id,
+                                method: "DELETE",
+                                headers: {
+                                    "Authorization": "Bearer " + tokenSpark,
+                                    "Content-Type": "application/json"
+                                },  //headers
+                            },  //request parameters - delete message
+                            function (error, response, body) {
+                                if(error) {
+                                    console.log("delete error: " + error);
+                                } else {
+                                    console.log("delete body: " + body);
+                                }
+                            } //function - request delete message
+                        ); //request - delete message
+                    } // if if ((typeof messageList.items[i].files != "undefined") && (messageList.items[i].personEmail == flint.email))
+                } //for(var i=0; i<messageList.items.length; i++)
+                bot.say("Cleanup is complete.");
+            }
+        }
+    );
+});
+
 
 function getRoomDetails(roomId, tokenSpark, callback) {
     console.log("getRoomDetails(" + roomId + ", " + tokenSpark + ")");
