@@ -160,34 +160,6 @@ flint.hears('/getroomdetails', function(bot, trigger) {
     });
 });
 
-flint.hears('/getroomdetails2', function(bot, trigger) {
-    var myRoomId = trigger.roomId;
-    console.log("getroomdetails2: Received room id: " + myRoomId);
-    var apiUrl = "https://api.ciscospark.com/v1/rooms/" + myRoomId;
-    console.log("url: " + apiUrl);
-    request({
-//        url: "https://api.ciscospark.com/v1/rooms/" + trigger.args,
-            method: "GET",
-            url: apiUrl,
-            qs: {
-                showSipAddress: "true"
-            },
-            headers: {
-                "Authorization": "Bearer " + token_spark,
-                "Content-Type": "application/json"
-            }
-        },
-        function (error, response, body) {
-            if(error) {
-                console.log("Room creation error: " +  error);
-            } else {
-                console.log("body: " + body);
-                bot.say(body);
-            }
-        } //function
-    ); //request
-});
-
 
 flint.hears('/flinthelp', function(bot, trigger, id) {
     bot.say(flint.showHelp());
@@ -212,6 +184,12 @@ flint.hears('/release', function(bot, trigger) {
             console.log('error imploding room');
         }
     });
+});
+
+// say bot properties
+flint.hears('/whoami', function(bot, trigger) {
+//    bot.say('I am ' + bot.myperson.displayName + ' in room ' + bot.myroom.title + '.  My email is ' + bot.myemail + '.');
+    bot.say('Hi ' + trigger.personDisplayName + '. I am ' + flint.person.displayName + ' in room ' + trigger.roomTitle + '.  My email is ' + flint.email + '. It is a pleasure to meet you.');
 });
 
 function getRoomDetails(roomId, tokenSpark, callback) {
