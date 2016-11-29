@@ -387,8 +387,16 @@ flint.hears(/.$/, function(bot, trigger) {
 });
 */
 
+// announce bot presence in room
+flint.hears('/marco', function(bot, trigger) {
+    bot.say('polo');
+});
+// announce bot presence in room
+flint.hears('marco', function(bot, trigger) {
+    bot.say('polo');
+});
 
-
+/*
 flint.hears('/compliancetest', function(bot, trigger) {
     // get regex as string
     // generic 16 digit numberic code: [0-9]{13}
@@ -422,6 +430,7 @@ flint.hears('/compliancetest', function(bot, trigger) {
     // delete/mask if match
 
 });
+*/
 
 function getRoomDetails(roomId, tokenSpark, callback) {
     console.log("getRoomDetails(" + roomId + ", " + tokenSpark + ")");
